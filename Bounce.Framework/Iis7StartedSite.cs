@@ -26,8 +26,16 @@ namespace Bounce.Framework
 
             if (site != null)
             {
-                site.Start();
-                Thread.Sleep(Wait.Value);
+                try
+                {
+                    site.Start();
+                    Thread.Sleep(Wait.Value);
+                }
+                catch
+                {
+                    // seems IIS 7.5 has bug of starting up site first time..
+                    // http://improve.dk/archive/2009/07/08/iis7-the-object-identifier-does-not-represent-a-valid-object.aspx
+                }
             }
         }
     }
